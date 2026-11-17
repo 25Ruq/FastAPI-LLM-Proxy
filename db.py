@@ -12,7 +12,7 @@ async def init_db() -> None:
         "response TEXT," \
         "latency_ms REAL NOT NULL," \
         "status TEXT Not NULL)")
-        
+
         await db.commit()
 
 async def log_request(
@@ -23,9 +23,11 @@ async def log_request(
 ) -> None:
     timestamp = datetime.now(timezone.utc).isoformat()
     async with aiosqlite.connect(DB_PATH) as db:
-        await db.execute( \
-            "INSERT INTO requests_logs (timestamp, prompt, response, latency_ms, status)" \              
-            "VALUES (?, ?, ?, ?, ?)",
+        await db.execute(
+            """
+            INSERT INTO requests_logs (timestamp, prompt, response, latency_ms, status)
+            VALUES (?, ?, ?, ?, ?)
+            """,
             (timestamp, prompt, response, round(latency_ms, 2), status))
 
         await db.commit()
