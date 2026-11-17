@@ -5,8 +5,8 @@ import httpx
 
 logger = logging.getLogger("requests_logger")
 
-API_BASE_URL = os.getenv("LLM_BASE_URL", "https://api.deepseek.com")
-MODEL_ID = os.getenv("LLM_MODEL", "deepseek-chat")
+API_BASE_URL = os.getenv("LLM_BASE_URL")
+MODEL_ID = os.getenv("LLM_MODEL")
 
 
 @backoff.on_exception(
