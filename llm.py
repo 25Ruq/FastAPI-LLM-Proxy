@@ -2,6 +2,9 @@ import logging
 import os
 import backoff
 import httpx
+from dotenv import load_dotenv
+
+load_dotenv()
 
 logger = logging.getLogger("requests_logger")
 
@@ -22,7 +25,7 @@ async def generate_response(prompt:str)-> str:
     if not api_key:
         raise RuntimeError("LLM_API_KEY environment variable is not set.")
 
-    async with httpx.AsyncClient(timeout=30) as client:
+    async with httpx.AsyncClient(timeout=30, verify=False) as client:
         response = await client.post(
             f"{API_BASE_URL}/chat/completions",
             json={
