@@ -35,11 +35,23 @@ A lightweight, asynchronous, and provider-agnostic FastAPI proxy service for Ope
 4. **Configure environment variables:**
    Create a `.env` file in the root directory and configure your target provider:
 
+   **Option A: Local Inference with Ollama**
+   Ensure [Ollama](https://ollama.com/) is installed, running (`ollama serve`), and your model is pulled (`ollama pull qwen3`).
+   ```env
+   # API Authentication (Ollama ignores the key, but a non-empty value is required)
+   LLM_API_KEY=ollama
+   
+   # LLM Configuration
+   LLM_MODEL=qwen3
+   LLM_BASE_URL=http://localhost:11434/v1
    ```
+
+   **Option B: Cloud Provider (Example: Google AI Studio Free Tier)**
+   ```env
    # API Authentication
    LLM_API_KEY=your_api_key_here
    
-   # LLM Configuration (Example: Google AI Studio Free Tier)
+   # LLM Configuration
    LLM_MODEL=gemini-2.5-flash
    LLM_BASE_URL=https://generativelanguage.googleapis.com/v1beta/openai/
 
